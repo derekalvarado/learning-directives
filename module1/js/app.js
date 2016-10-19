@@ -8,7 +8,9 @@ function mainCtrl() {
 }
 
 function userInfoCard() {
-    return {
 
+    return {
+        template: "User Info Card",
+        restrict: "E",
     }
 }
