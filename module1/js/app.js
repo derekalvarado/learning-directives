@@ -24,8 +24,9 @@ function userInfoCard() {
 
 function userInfoCardUsingScope() {
     return {
-        //'name' will be available on the enclosing scope of controller
-        template: "Name: {{user.name}} <br/> City: {{user.address.city}}",
+        //Double curly items here will be available on the enclosing scope of controller
+        //Note the use of !! as shorthand
+        template: "Name: {{user.name}} <br/> <div ng-show='!!user.address.city'> City: {{user.address.city}} </div>",
         restrict: "E",
     }
 }
