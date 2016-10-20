@@ -20,7 +20,7 @@ Each has a different purpose
 
 **Naming**
 
-Always prefix your directives to avoid custom collisions and make it obvious that an element is a directive
+Always prefix your directives to avoid custom collisions with possible future html or Angular spec, and to make it obvious that an element is a directive.
 
 Keep the naming consistent, following Angular conventions
 Organize your templates and javascript into their own folders
