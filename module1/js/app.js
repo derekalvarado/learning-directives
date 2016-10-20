@@ -46,6 +46,8 @@ function userInfoCardUsingReplace() {
 
         templateUrl: "userInfoCardReplacement.html",
         restrict: "E",
+
+        //'replace' was explained in the course, but has been deprecated
         replace: true
     }
 }

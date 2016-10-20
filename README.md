@@ -4,6 +4,7 @@ I needed a better understanding of how to manipulate the DOM from an Angular con
 
 The modules from the code are broken into different folders named accordingly. 
 
+#Module 1
 **Directive Types**
 
 Each has a different purpose
@@ -15,3 +16,12 @@ Each has a different purpose
 --Decorators almost never have a template
 -Structural:
 --Structural directives manipulates the DOM structurally to change the display.
+
+
+**Naming**
+
+Always prefix your directives to avoid custom collisions and make it obvious that an element is a directive
+
+Keep the naming consistent, following Angular conventions
+Organize your templates and javascript into their own folders
+
