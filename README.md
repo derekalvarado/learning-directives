@@ -28,3 +28,11 @@ Organize your templates and javascript into their own folders
 #Module 2
 
 Maintain encapsulation of a directive by giving it its own controller. That way, the directive isn't relying on functionality of the enclosing controller scope.
+
+By default, the directive will share the containing controller's scope.
+
+A directive with inherited scope can have access the outer scope, but also define isolated scope objects
+
+inherited scopes will have a parent property that indicates where the scope was inherited from, along with the parents member properties
+
+Btw, really interesting discovery... when the containing scope and the directive both define a method of the same name, last one wins? Sort of makes sense. This has more naming consequences.

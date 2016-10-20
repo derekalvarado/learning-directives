@@ -4,9 +4,14 @@
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="js/app2.js"></script>
     <meta charset="UTF-8">
-    <title>Directives!</title>
+    <title>Directive scopes!</title>
+    <link rel="stylesheet" href="../css/global.css">
 </head>
 <body ng-controller="mainCtrl">
     <user-info-card-using-template></user-info-card-using-template>
+    <directive-with-own-ctrl></directive-with-own-ctrl>
+    <directive-with-inherited-scope></directive-with-inherited-scope>
+<button ng-click="logScope()">Log containing (parent) scope</button>
+
 </body>
 </html>

@@ -5,6 +5,8 @@ angular.module('app')
 
 
     .directive('userInfoCardUsingTemplate', userInfoCardUsingTemplate)
+    .directive('directiveWithOwnCtrl', directiveWithOwnCtrl)
+    .directive('directiveWithInheritedScope', directiveWithInheritedScope);
 
 
 function mainCtrl($scope) {
@@ -15,8 +17,12 @@ function mainCtrl($scope) {
         }
     }
 
-    $scope.showMessage = function () {
+    $scope.explain = function () {
         alert("Message button was clicked! But the directive called a function on the controller. That\'s breaking encapsulation")
+    }
+
+    $scope.logScope = function () {
+        console.log($scope);
     }
 }
 
@@ -25,7 +31,35 @@ function userInfoCardUsingTemplate() {
     return {
 
         templateUrl: "userInfoCardTemplate.html",
+        restrict: "E",        
+    }
+}
+
+function directiveWithOwnCtrl() {
+    return {
+
+        templateUrl: "directiveWithOwnCtrl.html",
         restrict: "E",
         
+        controller: function ($scope) {
+            $scope.showMessage = function () {
+                alert("This message came from a function in the directive's own controller")
+            }
+        }
+    }
+}
+
+function directiveWithInheritedScope() {
+    return {
+
+        templateUrl: "directiveWithInheritedScope.html",
+        restrict: "E",
+        //This is all that is needed to use inherited scoping
+        scope: true,
+        controller: function ($scope) {
+            $scope.logScope = function () {
+                console.log($scope);
+            }
+        }
     }
 }
