@@ -25,3 +25,6 @@ Always prefix your directives to avoid custom collisions and make it obvious tha
 Keep the naming consistent, following Angular conventions
 Organize your templates and javascript into their own folders
 
+#Module 2
+
+Maintain encapsulation of a directive by giving it its own controller. That way, the directive isn't relying on functionality of the enclosing controller scope.
