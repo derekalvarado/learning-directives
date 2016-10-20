@@ -4,7 +4,8 @@ angular.module('app')
     .controller('mainCtrl', mainCtrl)
     .directive('userInfoCard', userInfoCard)
     .directive('userInfoCardUsingScope', userInfoCardUsingScope)
-    .directive('userInfoCardUsingTemplate', userInfoCardUsingTemplate);
+    .directive('userInfoCardUsingTemplate', userInfoCardUsingTemplate)
+    .directive('userInfoCardUsingReplace', userInfoCardUsingReplace);
 
 function mainCtrl($scope) {
     $scope.user = {
@@ -37,5 +38,14 @@ function userInfoCardUsingTemplate() {
 
         templateUrl: "userInfoCardTemplate.html",
         restrict: "E",
+    }
+}
+
+function userInfoCardUsingReplace() {
+    return {
+
+        templateUrl: "userInfoCardReplacement.html",
+        restrict: "E",
+        replace: true
     }
 }
