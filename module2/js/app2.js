@@ -6,7 +6,8 @@ angular.module('app')
 
     .directive('userInfoCardUsingTemplate', userInfoCardUsingTemplate)
     .directive('directiveWithOwnCtrl', directiveWithOwnCtrl)
-    .directive('directiveWithInheritedScope', directiveWithInheritedScope);
+    .directive('directiveWithInheritedScope', directiveWithInheritedScope)
+    .directive('directiveWithIsolatedScope', directiveWithIsolatedScope);
 
 
 function mainCtrl($scope) {
@@ -15,7 +16,9 @@ function mainCtrl($scope) {
         address: {
             city: "Austin, TX"
         }
-    }
+    };
+
+    $scope.someData =  "I'm a string defined on the parent (the controller)" ;
 
     $scope.explain = function () {
         alert("Message button was clicked! But the directive called a function on the controller. That\'s breaking encapsulation")
@@ -31,7 +34,7 @@ function userInfoCardUsingTemplate() {
     return {
 
         templateUrl: "userInfoCardTemplate.html",
-        restrict: "E",        
+        restrict: "E",
     }
 }
 
@@ -40,7 +43,7 @@ function directiveWithOwnCtrl() {
 
         templateUrl: "directiveWithOwnCtrl.html",
         restrict: "E",
-        
+
         controller: function ($scope) {
             $scope.showMessage = function () {
                 alert("This message came from a function in the directive's own controller")
@@ -55,11 +58,33 @@ function directiveWithInheritedScope() {
         templateUrl: "directiveWithInheritedScope.html",
         restrict: "E",
         //This is all that is needed to use inherited scoping
+        //If not present, default would be shared scope
         scope: true,
         controller: function ($scope) {
             $scope.logScope = function () {
                 console.log($scope);
             }
+        }
+    }
+}
+
+function directiveWithIsolatedScope() {
+    return {
+
+        templateUrl: "directiveWithIsolatedScope.html",
+        restrict: "E",
+        //Set scope to an object to make an isolated scope
+        //Scope properties bound this way must be all lowercase!
+        //The browser will basically run toLowerCase() all of the attributes on the directive's html
+        scope: {
+            duser: '='
+        },
+        controller: function ($scope, $log) {
+            $scope.logScope = function () {
+                $log.log($scope);
+            }
+
+            
         }
     }
 }

@@ -31,8 +31,43 @@ Maintain encapsulation of a directive by giving it its own controller. That way,
 
 By default, the directive will share the containing controller's scope.
 
-A directive with inherited scope can have access the outer scope, but also define isolated scope objects
+A `scope: true` property on a directive definition creates an inherited scope. A directive with inherited scope can have access the outer scope, but also define isolated scope objects
 
-inherited scopes will have a parent property that indicates where the scope was inherited from, along with the parents member properties
+If you `console.log` an inherited $scope will have a parent property that indicates where the scope was inherited from, along with the parents member properties. 
 
-Btw, really interesting discovery... when the containing scope and the directive both define a method of the same name, last one wins? Sort of makes sense. This has more naming consequences.
+Btw, really interesting discovery... when the containing scope and the directive both define a method of the same name, the last one wins. Sort of makes sense. This has more naming consequences.
+
+**Isolated Scope**
+
+When defining a directive, set the scope property to an object to define an isolated scope. In this new object, you can create property bindings that will get their value from the parent scope. Kinda crazy, but it would look like this: 
+```javascript
+function directiveWithIsolatedScope() {
+    return {
+
+        templateUrl: "directiveWithInheritedScope.html",
+        restrict: "E",
+        //Set scope to an object to make an isolated scope
+        scope: {
+            //notice the syntax below that makes the binding work
+            duser: '='
+        },
+        controller: function ($scope) {
+            $scope.logScope = function () {
+                console.log($scope);
+            }
+        }
+    }
+}
+```
+
+and the html to wire it up
+
+```html
+<directive-with-isolated-scope duser="user"></directive-with-isolated-scope>
+```
+The attribute "duser" is in the directive's scope. The value, "user", is the property on the parent scope that it is bound to. 
+
+Let me save you 15 minutes of hair pulling: HTML is case-insensitive, while javascript is case senstive. A property like 'dUser' in your directive's scope def will never get assigned, because an attribute 'dUser' in the HTML is going to get flattened to 'duser', and it will think there is no corresponding 'duser' property in the directive's scope definition. Duh!
+
+The back and forth checking of the wiring is probably the most frustrating part of Angular. Project Idea: Angular IDE?
+

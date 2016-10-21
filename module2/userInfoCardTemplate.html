@@ -1,11 +1,13 @@
 <div style="color: red">
-	<div>
-		This was loaded using a template:
-	</div>
 
-	Name: {{user.name}}
+	<p>This was loaded using a template:</p>
+
+
+	<p>Name: {{user.name}}</p>
 	<br/>
-	<div ng-show='!!user.address.city'> City: {{user.address.city}} </div>
+
+	<p ng-show='!!user.address.city'>City: {{user.address.city}}</p>
+
 
 	<button ng-click="explain()">Show Message</button>
 </div>
