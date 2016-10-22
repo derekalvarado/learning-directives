@@ -1,16 +1,6 @@
 angular.module('app', []);
 
-angular.module('app')
-    .controller('mainCtrl', mainCtrl)
-
-
-    .directive('userInfoCardUsingTemplate', userInfoCardUsingTemplate)
-    .directive('directiveWithOwnCtrl', directiveWithOwnCtrl)
-    .directive('directiveWithInheritedScope', directiveWithInheritedScope)
-    .directive('directiveWithIsolatedScope', directiveWithIsolatedScope);
-
-
-function mainCtrl($scope) {
+angular.module('app').controller('mainCtrl', function mainCtrl($scope) {
     $scope.user = {
         name: "Derek Alvarado",
         address: {
@@ -18,7 +8,7 @@ function mainCtrl($scope) {
         }
     };
 
-    $scope.someData =  "I'm a string defined on the parent (the controller)" ;
+    $scope.someData = "I'm a string defined on the parent (the controller)";
 
     $scope.explain = function () {
         alert("Message button was clicked! But the directive called a function on the controller. That\'s breaking encapsulation")
@@ -27,18 +17,18 @@ function mainCtrl($scope) {
     $scope.logScope = function () {
         console.log($scope);
     }
-}
+})
 
 
-function userInfoCardUsingTemplate() {
+angular.module('app').directive('userInfoCardUsingTemplate', function userInfoCardUsingTemplate() {
     return {
 
         templateUrl: "userInfoCardTemplate.html",
         restrict: "E",
     }
-}
+})
 
-function directiveWithOwnCtrl() {
+angular.module('app').directive('directiveWithOwnCtrl', function directiveWithOwnCtrl() {
     return {
 
         templateUrl: "directiveWithOwnCtrl.html",
@@ -50,9 +40,9 @@ function directiveWithOwnCtrl() {
             }
         }
     }
-}
+})
 
-function directiveWithInheritedScope() {
+angular.module('app').directive('directiveWithInheritedScope', function directiveWithInheritedScope() {
     return {
 
         templateUrl: "directiveWithInheritedScope.html",
@@ -66,9 +56,9 @@ function directiveWithInheritedScope() {
             }
         }
     }
-}
+})
 
-function directiveWithIsolatedScope() {
+angular.module('app').directive('directiveWithIsolatedScope', function directiveWithIsolatedScope() {
     return {
 
         templateUrl: "directiveWithIsolatedScope.html",
@@ -84,7 +74,41 @@ function directiveWithIsolatedScope() {
                 $log.log($scope);
             }
 
-            
+
         }
     }
-}
+})
+
+angular.module('app').directive('directiveWithSharedScope', function directiveWithIsolatedScope() {
+    return {
+
+        templateUrl: "directiveWithSharedScope.html",
+        restrict: "E",
+        //shared scope
+        //scope: true,
+        controller: function ($scope, $log) {
+            $scope.logScope = function () {
+                $log.log($scope);
+            }
+
+
+        }
+    }
+})
+
+angular.module('app').directive('sharedAttribute', function isolatedAttribute() {
+    return {
+
+        //Cannot define a template if this is to be used on a
+        //directive that also defines a template
+        restrict: "A",
+        //shared scope
+        controller: function ($scope, $log) {
+            $scope.logScope = function () {
+                $log.log($scope);
+            }
+
+
+        }
+    }
+})

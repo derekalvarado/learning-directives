@@ -1,0 +1,12 @@
+<div style="color: black; border:1px solid blue">
+	<p>This directive has shared scope with the controller</p>
+	<p>It also has an attribute directive called shared attribute.</p>
+	<p>This is OK, as long as the element and attribute directives don't collide on these issues: </p>
+
+	<ul>
+		<li>Multiple directives requesting isolated scope.</li>
+		<li>Multiple directives publishing a controller under the same</li> name.
+		<li>Multiple directives declared with the transclusion option.</li>
+		<li>Multiple directives attempting to define a template or</li> templateURL.
+	</ul>
+</div>
