@@ -96,7 +96,7 @@ angular.module('app').directive('directiveWithSharedScope', function directiveWi
     }
 })
 
-angular.module('app').directive('sharedAttribute', function isolatedAttribute() {
+angular.module('app').directive('sharedAttribute', function sharedAttribute() {
     return {
 
         //Cannot define a template if this is to be used on a
@@ -108,6 +108,24 @@ angular.module('app').directive('sharedAttribute', function isolatedAttribute() 
                 $log.log($scope);
             }
 
+
+        }
+    }
+})
+
+angular.module('app').directive('directiveWithInitialValues', function directiveWithInitialValues() {
+    return {
+
+        templateUrl: 'directiveWithInitialValues.html',
+        restrict: "E",
+        scope: {
+            myval: '@',
+            //'status' is that attribute you will use in the HTML
+            //'otherVal' is what it will map to in this controller
+            //useful for avoiding collisions
+            otherVal: '@status'
+        },
+        controller: function ($scope, $log) {
 
         }
     }
