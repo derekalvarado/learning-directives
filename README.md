@@ -72,4 +72,7 @@ Let me save you 15 minutes of hair pulling: HTML is case-insensitive, while java
 The back and forth checking of the wiring is probably the most frustrating part of Angular. Project Idea: Angular IDE?
 
 **Multiple Scopes**
-Angular does not allow for multiple isolated scopes on the same directive. Think one scope defined by the element, another by an attribute. Multiple inheritance is possible, but advice is, whenever creating attributes that could be shared scopes, it's best to stick with shared scopes. 
+
+Angular does not allow for multiple isolated scopes on the same directive, e.g. one scope defined by the element, another by an attribute. Multiple inheritance is possible, but advice is, whenever creating attributes that could be shared scopes, it's best to stick with shared scopes. 
+
+Also, an element with multiple directives can only have one template defined. 
