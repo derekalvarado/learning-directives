@@ -17,7 +17,7 @@ angular.module('app2').controller('mainCtrl', function mainCtrl($scope) {
     $scope.logScope = function () {
         console.log($scope);
     }
-
+    $scope.stevesShoes = "Size 12";
     //This function is going to be passed into a directive via function parameter    
     $scope.alertFunc = function () {
         alert("Function parameter is working!\nThis alert is coming not from the directive, but from the parent controller.");
@@ -142,7 +142,13 @@ angular.module('app2').directive('directiveWithInitialValues', function directiv
         templateUrl: 'directiveWithInitialValues.html',
         restrict: "E",
         scope: {
+            //Use '=' to set the value of 'shoes' via the 'shoes' attribute in the html
+            shoes: '=',
+
+            //Use the @ sign to set a simple value type right from the HTML
             myval: '@',
+
+            //Mapping variables using @:
             //'status' is the attribute you will use in the HTML
             //'otherVal' is what it will map to in this controller
             //useful for avoiding collisions
