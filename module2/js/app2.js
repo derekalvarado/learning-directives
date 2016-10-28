@@ -1,6 +1,6 @@
-angular.module('app', []);
+angular.module('app2', []);
 
-angular.module('app').controller('mainCtrl', function mainCtrl($scope) {
+angular.module('app2').controller('mainCtrl', function mainCtrl($scope) {
     $scope.user = {
         name: "Derek Alvarado",
         address: {
@@ -17,10 +17,33 @@ angular.module('app').controller('mainCtrl', function mainCtrl($scope) {
     $scope.logScope = function () {
         console.log($scope);
     }
+
+    //This function is going to be passed into a directive via function parameter    
+    $scope.alertFunc = function () {
+        alert("Function parameter is working!\nThis alert is coming not from the directive, but from the parent controller.");
+    }
+})
+angular.module('app2').controller('secondCtrl', function secondCtrl($scope) {
+    $scope.user = {
+        name: 'Derek',
+        friends: ["Jacob", "Rob", "Colby"],
+        address: {
+            street: "Honey Dew Terrace",
+            city: "Austin",
+            state: "TX"
+        }
+    }
+
+    $scope.addFriend = function (newFriend) {
+        $scope.user.friends.push(newFriend);
+    }
+
+    $scope.display = function () {
+        alert('display function called from lower down the chain');
+    }
 })
 
-
-angular.module('app').directive('userInfoCardUsingTemplate', function userInfoCardUsingTemplate() {
+angular.module('app2').directive('userInfoCardUsingTemplate', function userInfoCardUsingTemplate() {
     return {
 
         templateUrl: "userInfoCardTemplate.html",
@@ -28,7 +51,7 @@ angular.module('app').directive('userInfoCardUsingTemplate', function userInfoCa
     }
 })
 
-angular.module('app').directive('directiveWithOwnCtrl', function directiveWithOwnCtrl() {
+angular.module('app2').directive('directiveWithOwnCtrl', function directiveWithOwnCtrl() {
     return {
 
         templateUrl: "directiveWithOwnCtrl.html",
@@ -42,7 +65,7 @@ angular.module('app').directive('directiveWithOwnCtrl', function directiveWithOw
     }
 })
 
-angular.module('app').directive('directiveWithInheritedScope', function directiveWithInheritedScope() {
+angular.module('app2').directive('directiveWithInheritedScope', function directiveWithInheritedScope() {
     return {
 
         templateUrl: "directiveWithInheritedScope.html",
@@ -58,7 +81,7 @@ angular.module('app').directive('directiveWithInheritedScope', function directiv
     }
 })
 
-angular.module('app').directive('directiveWithIsolatedScope', function directiveWithIsolatedScope() {
+angular.module('app2').directive('directiveWithIsolatedScope', function directiveWithIsolatedScope() {
     return {
 
         templateUrl: "directiveWithIsolatedScope.html",
@@ -79,7 +102,7 @@ angular.module('app').directive('directiveWithIsolatedScope', function directive
     }
 })
 
-angular.module('app').directive('directiveWithSharedScope', function directiveWithIsolatedScope() {
+angular.module('app2').directive('directiveWithSharedScope', function directiveWithIsolatedScope() {
     return {
 
         templateUrl: "directiveWithSharedScope.html",
@@ -96,11 +119,11 @@ angular.module('app').directive('directiveWithSharedScope', function directiveWi
     }
 })
 
-angular.module('app').directive('sharedAttribute', function sharedAttribute() {
+angular.module('app2').directive('sharedAttribute', function sharedAttribute() {
     return {
 
-        //Cannot define a template if this is to be used on a
-        //directive that also defines a template
+        //Cannot define a template if this attribute directive 
+        //is to be used on an element directive that also defines a template
         restrict: "A",
         //shared scope
         controller: function ($scope, $log) {
@@ -113,14 +136,14 @@ angular.module('app').directive('sharedAttribute', function sharedAttribute() {
     }
 })
 
-angular.module('app').directive('directiveWithInitialValues', function directiveWithInitialValues() {
+angular.module('app2').directive('directiveWithInitialValues', function directiveWithInitialValues() {
     return {
 
         templateUrl: 'directiveWithInitialValues.html',
         restrict: "E",
         scope: {
             myval: '@',
-            //'status' is that attribute you will use in the HTML
+            //'status' is the attribute you will use in the HTML
             //'otherVal' is what it will map to in this controller
             //useful for avoiding collisions
             otherVal: '@status'
@@ -130,3 +153,26 @@ angular.module('app').directive('directiveWithInitialValues', function directive
         }
     }
 })
+
+angular.module('app2').directive('functionParameters', function functionParameters() {
+    return {
+        restrict: 'E',
+        templateUrl: 'functionParameters.html',
+        scope: {
+            //The ampersand means we're going to pass a function into this directive
+            //via an attribute called 'method' in the html
+            //Whatever we pass in will have been defined on the parent directive or scope
+            //but mapped to a function called 'display' in this directive's scope
+            display: '&method',
+
+        },
+        controller: function ($scope) {
+            $scope.callDisplay = function () {
+                console.log('In callDisplay')
+                $scope.display();
+            }
+        }
+
+    }
+})
+

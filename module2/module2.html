@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app2">
 
 <head>
 	<script src="../bower_components/angular/angular.min.js"></script>
@@ -9,22 +9,30 @@
 	<link rel="stylesheet" href="../css/global.css">
 </head>
 
-<body ng-controller="mainCtrl">
-	<user-info-card-using-template></user-info-card-using-template>
-	<directive-with-own-ctrl></directive-with-own-ctrl>
-	<directive-with-inherited-scope></directive-with-inherited-scope>
-	<button ng-click="logScope()">Log containing (parent) scope</button>
+<body >
+	<div ng-controller="mainCtrl">
+		<user-info-card-using-template></user-info-card-using-template>
+		<directive-with-own-ctrl></directive-with-own-ctrl>
+		<directive-with-inherited-scope></directive-with-inherited-scope>
+		<button ng-click="logScope()">Log containing (parent) scope</button>
 
-	<br/>
-	<br/>
+		<br/>
+		<br/>
 
-	<directive-with-isolated-scope duser="user">
+		<directive-with-isolated-scope duser="user">
 
-	</directive-with-isolated-scope>
+		</directive-with-isolated-scope>
 
-    <directive-with-shared-scope shared-attribute></directive-with-shared-scope>
+		<directive-with-shared-scope shared-attribute></directive-with-shared-scope>
 
-    <directive-with-initial-values myval="I come from an attribute" status="Learning"></directive-with-initial-values>
+		<directive-with-initial-values myval="I come from an attribute" status="Learning"></directive-with-initial-values>
+
+		<!--alertFunc is a function defined on mainCtrl. I can pass it in here. Note that you must include parentheses even though you only want to pass a reference to the function. I think this offer a peek into how angular is implementing this call chain.-->
+		<function-parameters method='alertFunc()'></function-parameters>
+	</div>
+    <div ng-controller="secondCtrl">
+        
+    </div>
 </body>
 
 </html>
